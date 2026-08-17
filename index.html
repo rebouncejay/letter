@@ -340,6 +340,11 @@
 
   <div class="letter-wrap" id="letterWrap">
     <div class="polaroids" id="polaroids">
+      <!--
+        Each polaroid below is a placeholder.
+        Replace src="" with your real photo (a file path, URL, or base64 data URI).
+        Edit or remove the caption text as you like.
+      -->
       <div class="polaroid">
         <img src="photos/polaroid1.jpeg" alt="us, close" style="object-position: center 30%;">
         <div class="polaroid-caption">us :)</div>
@@ -376,6 +381,8 @@
   const letterWrap = document.getElementById('letterWrap');
   const letterBody = document.getElementById('letterBody');
 
+  // Placeholder letter — swap this array out with the real message later.
+  // Each string in the array becomes its own fading-in line/paragraph.
   const letterLines = [
     "I've been meaning to write this for a while, and I don't want to get it wrong.",
     "I'm sorry. Truly, deeply sorry — for the hurt I caused and for not seeing it sooner.",
@@ -397,6 +404,7 @@
     const signoffDelay = (letterLines.length * 0.55) + 0.3;
     document.getElementById('signoff').style.animationDelay = signoffDelay + 's';
 
+    // Polaroids drift in shortly after the last line finishes
     const polaroids = document.querySelectorAll('.polaroid');
     const baseDelay = signoffDelay + 0.6;
     polaroids.forEach((p, i) => {
