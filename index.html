@@ -864,13 +864,15 @@
 </div>
 
 <!--
-  Background music: audio/butterflies.mp3 — Brent Faiyaz, "Butterflies".
-  Keep this file in an audio folder next to this HTML file (same setup as the photos folder).
+  Background music: audio/Brent Faiyaz - butterflies. Official Video.mp3
+  Now starts automatically the moment the postcard is tapped (counts as a user
+  gesture, so browsers allow it). The bottom-right button still lets Brenda
+  pause/resume it manually afterward.
   Note: since this is a copyrighted track, keep this project private rather than
   publishing it to a public GitHub repo or public site — that would count as
   distributing the song publicly, not just using it for this one-off page.
 -->
-<audio id="bgAudio" src="audio/butterflies.mp3" loop preload="none"></audio>
+<audio id="bgAudio" src="audio/Brent%20Faiyaz%20-%20butterflies.%20Official%20Video.mp3" loop preload="none"></audio>
 <button class="music-toggle paused" id="musicToggle" type="button" aria-label="Play music">
   <span class="bar"><span></span><span></span><span></span></span>
 
@@ -919,6 +921,16 @@
 
   function sendCard() {
     postcard.classList.add('folding');
+
+    // Start music immediately, inside the click handler, so the browser
+    // counts it as triggered by a real user gesture and allows autoplay.
+    bgAudio.play().then(() => {
+      musicToggle.classList.remove('paused');
+      musicToggle.setAttribute('aria-label', 'Pause music');
+    }).catch(() => {
+      // Autoplay blocked or file not found — toggle stays paused, user can tap it manually.
+    });
+
     setTimeout(() => {
       postcard.style.display = 'none';
       paperPlane.classList.add('flying');
@@ -951,7 +963,7 @@
   musicToggle.addEventListener('click', () => {
     if (bgAudio.paused) {
       bgAudio.play().catch(() => {
-        // File not present yet (audio/butterflies.mp3 hasn't been added) — fail quietly.
+        // File missing/misnamed, or browser blocked it — fail quietly.
       });
       musicToggle.classList.remove('paused');
       musicToggle.setAttribute('aria-label', 'Pause music');
