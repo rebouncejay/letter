@@ -492,20 +492,22 @@
   }
 
   .postcard-photo {
-    bottom: 60px;
-    left: 22px;
+    bottom: 50px;
+    left: 20px;
     right: auto;
     transform: rotate(-5deg);
-    width: 78px;
+    width: 116px;
+    z-index: 2;
   }
 
   .postcard-photo img {
-    height: 64px;
+    height: 96px;
+    transform: scaleX(-1);
   }
 
   @media (max-width: 560px) {
-    .postcard-photo { bottom: auto; top: 10px; left: 10px; width: 58px; }
-    .postcard-photo img { height: 48px; }
+    .postcard-photo { bottom: auto; top: 10px; left: 10px; width: 82px; }
+    .postcard-photo img { height: 68px; }
   }
 
   .tap-hint {
@@ -662,6 +664,71 @@
     transform: translateX(-4px);
   }
 
+  .finish-prompt {
+    display: block;
+    margin: 34px auto 0;
+    padding: 12px 34px;
+    background: var(--deep-rose);
+    color: var(--white);
+    border-radius: 999px;
+    font-style: normal;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    box-shadow: 0 10px 24px rgba(120, 40, 70, 0.3);
+  }
+
+  .finish-prompt:hover {
+    background: var(--deep-rose-2);
+    color: var(--white);
+    transform: translateY(-2px);
+  }
+
+  .finish-prompt .arrow {
+    display: none;
+  }
+
+  /* ---------- CLOSING SWEEP ---------- */
+  .closing-overlay {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(160deg, var(--deep-rose) 0%, var(--deep-rose-2) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+    overflow: hidden;
+  }
+
+  .closing-overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .closing-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: clamp(42px, 12vw, 120px);
+    color: var(--white);
+    text-shadow: 0 10px 34px rgba(80, 20, 45, 0.45);
+    white-space: nowrap;
+    transform: translateX(-130%);
+  }
+
+  .closing-overlay.visible .closing-text {
+    animation: sweepAcross 1.3s cubic-bezier(.2,.8,.25,1) forwards;
+  }
+
+  @keyframes sweepAcross {
+    0%   { transform: translateX(-130%); }
+    65%  { transform: translateX(4%); }
+    100% { transform: translateX(0); }
+  }
+
   .sincere-video {
     display: block;
     width: 100%;
@@ -671,34 +738,10 @@
     background: var(--charcoal);
   }
 
-  .more-photos-note {
-    margin-top: 36px;
-    display: flex;
-    gap: 14px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .photo-placeholder {
-    width: 70px;
-    height: 70px;
-    border-radius: 4px;
-    border: 1.5px dashed var(--blush);
-    background: var(--blush-soft);
-    overflow: hidden;
-  }
-
-  .photo-placeholder img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
   /* ---------- FLOATING POLAROIDS ---------- */
   .polaroids {
     position: absolute;
-    inset: -60px -90px;
+    inset: -70px -150px;
     pointer-events: none;
     z-index: -1;
   }
@@ -747,11 +790,14 @@
     50% { transform: translateY(-10px) rotate(calc(var(--rot) - 1.5deg)); }
   }
 
-  .polaroid:nth-child(1) { --rot: -8deg; top: -40px; left: -70px; animation-delay: 3.2s, 3.2s; }
-  .polaroid:nth-child(2) { --rot: 6deg;  top: 60px;  right: -90px; animation-delay: 3.6s, 3.6s; width: 135px; }
-  .polaroid:nth-child(3) { --rot: 5deg;  bottom: -30px; left: -60px; animation-delay: 4.0s, 4.0s; width: 130px; }
-  .polaroid:nth-child(4) { --rot: -6deg; bottom: 40px; right: -70px; animation-delay: 4.4s, 4.4s; width: 125px; }
-  .polaroid:nth-child(5) { --rot: 4deg;  top: 260px; left: -95px; animation-delay: 4.8s, 4.8s; width: 130px; }
+  .polaroid:nth-child(1) { --rot: -8deg; top: 1%;  left: -120px; animation-delay: 3.2s, 3.2s; }
+  .polaroid:nth-child(2) { --rot: 6deg;  top: 13%; right: -140px; animation-delay: 3.6s, 3.6s; width: 132px; }
+  .polaroid:nth-child(3) { --rot: 5deg;  top: 27%; left: -150px; animation-delay: 4.0s, 4.0s; width: 128px; }
+  .polaroid:nth-child(4) { --rot: -6deg; top: 41%; right: -130px; animation-delay: 4.4s, 4.4s; width: 124px; }
+  .polaroid:nth-child(5) { --rot: 4deg;  top: 55%; left: -140px; animation-delay: 4.8s, 4.8s; width: 130px; }
+  .polaroid:nth-child(6) { --rot: -5deg; top: 68%; right: -145px; animation-delay: 5.2s, 5.2s; width: 126px; }
+  .polaroid:nth-child(7) { --rot: 7deg;  top: 81%; left: -125px; animation-delay: 5.6s, 5.6s; width: 130px; }
+  .polaroid:nth-child(8) { --rot: -7deg; top: 94%; right: -120px; animation-delay: 6.0s, 6.0s; width: 122px; }
 
   @media (max-width: 900px) {
     .polaroids { display: none; }
@@ -830,6 +876,10 @@
     }
     .envelope2-flap, .envelope2-seal, .envelope-slot, .postcard-slot {
       transition: none;
+    }
+    .closing-overlay.visible .closing-text {
+      animation: none;
+      transform: translateX(0);
     }
   }
 
@@ -1134,6 +1184,18 @@
         <img src="photos/polaroid5.jpeg" alt="us, out together" style="object-position: center 25%;">
         <div class="polaroid-caption">good night</div>
       </div>
+      <div class="polaroid">
+        <img src="photos/polaroid6.jpeg" alt="us">
+        <div class="polaroid-caption">this one too</div>
+      </div>
+      <div class="polaroid">
+        <img src="photos/polaroid7.jpeg" alt="us">
+        <div class="polaroid-caption">keepsake</div>
+      </div>
+      <div class="polaroid">
+        <img src="photos/polaroid8.jpeg" alt="us">
+        <div class="polaroid-caption">us, always</div>
+      </div>
     </div>
     <div class="letter-card">
       <div class="letter-heading">Dear Kaspeshio,</div>
@@ -1146,15 +1208,16 @@
   <div class="page" id="page2">
     <div class="letter-card">
       <button class="continue-prompt back-prompt" id="backBtn" type="button"><span class="arrow back-arrow">←</span> back to the letter</button>
-      <div class="letter-heading">Still yours,</div>
-      <p class="letter-signoff" id="signoff2" style="animation-delay: 0.2s;">— with all my love, Senior</p>
       <video id="sincereVideo" class="sincere-video" src="video/Video.mp4" playsinline controls></video>
-      <div class="more-photos-note" aria-hidden="true">
-        <div class="photo-placeholder"><img src="photos/polaroid7.jpeg" alt="us"></div>
-        <div class="photo-placeholder"><img src="photos/polaroid8.jpeg" alt="us"></div>
-      </div>
-      <!-- More photos will go here later — replace the placeholders above with <img> tags the same way page 1's polaroids work. -->
+      <div class="letter-heading" style="margin-top: 28px;">Still yours,</div>
+      <p class="letter-signoff" id="signoff2" style="animation-delay: 0.2s;">— with all my love, Senior</p>
+      <button class="continue-prompt finish-prompt" id="finishBtn" type="button" style="animation-delay: 0.8s;">finish</button>
     </div>
+  </div>
+
+  <!-- CLOSING: full-screen "I'm sorry" sweep, triggered by video ending or the Finish button -->
+  <div class="closing-overlay" id="closingOverlay" aria-hidden="true">
+    <div class="closing-text">I'm sorry</div>
   </div>
 
 
@@ -1186,6 +1249,8 @@
   const letterBody = document.getElementById('letterBody');
   const continueBtn = document.getElementById('continueBtn');
   const backBtn = document.getElementById('backBtn');
+  const finishBtn = document.getElementById('finishBtn');
+  const closingOverlay = document.getElementById('closingOverlay');
   const musicToggle = document.getElementById('musicToggle');
   const bgAudio = document.getElementById('bgAudio');
   const sincereVideo = document.getElementById('sincereVideo');
@@ -1302,13 +1367,17 @@
     }).catch(() => {});
   }
 
-  // When the video finishes on its own, bring the music back.
-  sincereVideo.addEventListener('ended', () => {
-    bgAudio.play().then(() => {
-      musicToggle.classList.remove('paused');
-      musicToggle.setAttribute('aria-label', 'Pause music');
-    }).catch(() => {});
-  });
+  // Show the closing "I'm sorry" sweep — pauses everything else first.
+  function showClosing() {
+    sincereVideo.pause();
+    bgAudio.pause();
+    musicToggle.classList.add('paused');
+    musicToggle.setAttribute('aria-label', 'Play music');
+    closingOverlay.classList.add('visible');
+  }
+
+  // When the video finishes on its own, move straight to the closing sweep.
+  sincereVideo.addEventListener('ended', showClosing);
 
   envelope2.addEventListener('click', openEnvelope);
   envelope2.addEventListener('keypress', (e) => {
@@ -1317,6 +1386,7 @@
 
   continueBtn.addEventListener('click', goToPage2);
   backBtn.addEventListener('click', goToPage1);
+  finishBtn.addEventListener('click', showClosing);
 
   musicToggle.addEventListener('click', () => {
     if (bgAudio.paused) {
